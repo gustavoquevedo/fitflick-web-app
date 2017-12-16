@@ -1,0 +1,64 @@
+﻿@model IEnumerable<FitFlickWebApp.Models.Advertisement>
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.PaymentOption)
+        </th>
+        <th>
+            @*@Html.DisplayNameFor(model => model.BusinessName)*@
+            Business Name
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.EmailAddress)
+        </th>
+        <th>
+            @*@Html.DisplayNameFor(model => model.AdvertisementType)*@
+            Type
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CreateDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Approved)
+        </th>
+        <th>Actions</th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr class='@(item.Approved ? "approved" : "disapproved")'>
+            <td>
+                @Html.DisplayFor(modelItem => item.PaymentOption)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.BusinessName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.EmailAddress)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.AdvertisementType)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CreateDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Approved) 
+                @using (@Ajax.BeginForm("SetApproval", new { id = item.ID }, new AjaxOptions { UpdateTargetId = "ad-list-container" }))
+                {
+                    @Html.AntiForgeryToken()
+                    <input type="hidden" name="value" value='@(item.Approved ? "false" : "true")' />
+                    <input type="submit" value='@(item.Approved ? "Disapprove" : "Approve")' />
+                }   
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.ID }) |
+                @Html.ActionLink("Details", "Details", new { id = item.ID }) |
+                @Html.ActionLink("Preview", "Preview", new { id = item.ID }, htmlAttributes: new { target="_blank" }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.ID })
+            </td>
+        </tr>
+    }
+
+</table>

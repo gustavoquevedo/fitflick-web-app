@@ -1,0 +1,57 @@
+﻿@model FitFlickWebApp.Models.Advertisement
+@{
+    ViewBag.Title = "Preview";
+    Layout = "~/Views/Shared/_LayoutFitFlick.cshtml";
+}
+
+<link rel='stylesheet' type='text/css' href='/Content/vendor/preview.css'>
+<script src='/Scripts/vendor/preview.js'></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/latest/plugins/CSSPlugin.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/latest/easing/EasePack.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/latest/TweenLite.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/latest/TweenMax.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/1.15.0/utils/Draggable.min.js"></script>
+
+<link href='https://fonts.googleapis.com/css?family=Noto+Sans' rel='stylesheet' type='text/css'>
+<div class="successful-registration-msg">
+    <center><h2> Your Registeration has been successfully completed </h2></center>
+    <center><h4> This is how your ad will look in the FitFlick </h4></center>
+    <center><a href="http://www.fitflick.ie">Go Back Home</a></center>
+</div>
+<div class="phone">
+
+    <div class="app">
+
+        <div class="header">
+
+            <span class="settings"></span>
+
+            <img src="~/Content/Images/fitflick.png" />
+
+            <span class="chat"></span>
+
+        </div>
+
+        <div class="content">
+
+        </div>
+
+        <div class="footer">
+            <div id="swipe_dislike" class="rate"></div>
+
+            <div class="info"></div>
+
+            <div id="swipe_like" class="rate"></div>
+        </div>
+
+    </div>
+
+</div>
+
+<script>
+    $(document).ready(function () {
+        setData('@Convert.ToBase64String(Model.ImageData)', '@Model.BusinessName');
+        addNewProfile();
+    });
+
+</script>

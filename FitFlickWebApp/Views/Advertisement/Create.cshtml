@@ -1,0 +1,231 @@
+﻿@using FitFlickWebApp.Models;
+@model FitFlickWebApp.Models.Advertisement
+
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Views/Shared/_LayoutFitFlick.cshtml";
+}
+
+
+<!--======================================================
+        Contact Section
+    ======================================================-->
+<section id='contact' class='contact-section'>
+
+    <div class='container'>
+
+        <div class='section-header text-center'>
+            <h2 class='wow fadeInUp' data-wow-delay='.2s'>Advertise Through FitFlick !</h2>
+            <b class='wow fadeInUp' data-wow-delay='.4s'>You can advertise basically anything that you want!, for example this could be either, fitness classes, sports gear, protein shakes, gym memembership, special offers, basically anything that you wish through our application! the list is endless, as long as it relates to health, wellness or fitness you can post this ad.</b>
+        </div>
+
+        <div class='row'>
+            <div class='col-md-8 col-md-offset-2'>
+
+    @using (Html.BeginForm("Create", "Advertisement", FormMethod.Post,
+                            new { enctype = "multipart/form-data", @id = "contact-form", @class = "contact-form", data_toggle = "validator" }))
+    {
+        @Html.AntiForgeryToken()
+
+
+        <script type="text/javascript">
+
+            function sendMail() {
+                var link = "mailto:dcupracticum2016@gmail.com"
+                    + "?cc=" + escape(document.getElementById('email').value)
+                    + "&subject=" + escape(" FitFlick Contact ") + escape(document.getElementById('name').value)
+                    + "&body=" + escape(document.getElementById('message').value);
+
+                window.location.href = link;
+            }
+
+        </script>
+
+                    <div id='contact-form-result'></div>
+                    <h4>Payment Option:</h4>
+
+                    <div class='col-md-4'>
+                        <div class='p-table wow fadeInRight' data-wow-delay='.8s'>
+                            <div class='header'>
+                                <h4>FREE</h4>
+                                <div class='price'>
+                                    <span class='amount'>0.00c </span>
+                                    <span class='period'>/1 month</span>
+                                </div>
+                            </div>
+                            <ul class='items'>
+                                <li>Posting Ads</li>
+                                <li>User Enquery</li>
+                                @Html.RadioButtonFor(m => m.PaymentOption, PaymentOption.Free, new { required = "required" }) Select this
+                                <br>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class='col-md-4'>
+                        <div class='p-table standard wow bounceIn' data-wow-delay='.2s'>
+                            <div class='header'>
+                                <h4>Monthly</h4>
+                                <div class='price'>
+                                    <span class='amount'>€5</span>
+                                    <span class='period'>/monthly</span>
+                                </div>
+                            </div>
+                            <ul class='items'>
+                                <li>Posting Ads</li>
+                                <li>User Enquery</li>
+                                <li>Monthly stats</li>
+                                @Html.RadioButtonFor(m => m.PaymentOption, PaymentOption.Monthly, new { required = "required" }) Select this
+                                <br>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class='col-md-4'>
+                        <div class='p-table wow fadeInLeft' data-wow-delay='.8s'>
+                            <div class='header'>
+                                <h4>Annual</h4>
+                                <div class='price'>
+                                    <span class='amount'>€35</span>
+                                    <span class='period'>/12 months</span>
+                                </div>
+                            </div>
+                            <ul class='items'>
+                                <li>Posting Ads</li>
+                                <li>Monthly stats</li>
+                                @Html.RadioButtonFor(m => m.PaymentOption, PaymentOption.Annual, new { required = "required" }) Select this
+                                <br>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class='row'>
+                        <div class='col-md-12'>
+                            @Html.ValidationMessageFor(model => model.PaymentOption, "", new { @class = "help-block with-errors" })
+                        </div>
+                    </div>
+                    <div class='row'>
+
+                        <div class='col-md-6'>
+
+                            <div class='form-group'>
+                                @Html.EditorFor(model => model.BusinessName, new
+                                {
+                                    htmlAttributes = new
+                                    {
+                                        @class = "form-control wow fadeInUp",
+                                        data_wow_delay = ".4s",
+                                        placeholder = Html.DisplayNameFor(x => x.BusinessName),
+                                        required = "required"
+                                    }
+                                })
+                                @Html.ValidationMessageFor(model => model.BusinessName, "", new { @class = "help-block with-errors" })
+                            </div>
+
+                        </div>
+                        <div class='col-md-6'>
+                            <div class='form-group'>
+                                @Html.EditorFor(model => model.EmailAddress, new
+                                {
+                                    htmlAttributes = new
+                                    {
+                                        @class = "form-control wow fadeInUp",
+                                        data_wow_delay = ".5s",
+                                        placeholder = Html.DisplayNameFor(x => x.EmailAddress),
+                                        required = "required"
+                                    }
+                                })
+                                @Html.ValidationMessageFor(model => model.EmailAddress, "", new { @class = "help-block with-errors" })
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class='form-group'>
+                    @Html.EditorFor(model => model.WebsiteUrl, new
+                    {
+                        htmlAttributes = new
+                        {
+                            @class = "form-control wow fadeInUp",
+                            data_wow_delay = ".5s",
+                            placeholder = Html.DisplayNameFor(x => x.WebsiteUrl),
+                            required = "required"
+                        }
+                    })
+                    @Html.ValidationMessageFor(model => model.WebsiteUrl, "", new { @class = "help-block with-errors" })
+                    </div>
+
+                    <div class='form-group'>
+                        @Html.EnumDropDownListFor(model => model.AdvertisementType, "Please select *", new
+                        {
+                            @class = "form-control wow fadeInUp",
+                            data_wow_delay = ".5s",
+                            required = "required"
+                        })
+                        @Html.ValidationMessageFor(model => model.AdvertisementType, "", new { @class = "help-block with-errors" })
+                    </div>
+
+                    <div class='form-group'>
+                        @Html.EditorFor(model => model.TwitterLink, new
+                        {
+                            htmlAttributes = new
+                            {
+                                @class = "form-control wow fadeInUp",
+                                data_wow_delay = ".6s",
+                                placeholder = Html.DisplayNameFor(x => x.TwitterLink),
+                                required = "required"
+                            }
+                        })
+                        @Html.ValidationMessageFor(model => model.TwitterLink, "", new { @class = "help-block with-errors" })
+                    </div>
+
+                    <div class='form-group'>
+                        @Html.EditorFor(model => model.InstagramUserName, new
+                        {
+                            htmlAttributes = new
+                            {
+                                @class = "form-control wow fadeInUp",
+                                data_wow_delay = ".6s",
+                                placeholder = Html.DisplayNameFor(x => x.InstagramUserName),
+                                required = "required"
+                            }
+                        })
+                        @Html.ValidationMessageFor(model => model.InstagramUserName, "", new { @class = "help-block with-errors" })
+                    </div>
+                    
+                    <input type="file" accept="image/*" name="imageFile" class="form-control wow fadeInUp" data-wow-delay='.6s' 
+                           id="imageFile" placeholder="Upload your business logo or adverts pictures" required="required" />
+
+                    <div class='row'>
+                        <div class='col-md-12'>
+                            @Html.ValidationMessageFor(model => model.PaymentOption, "", new { @class = "help-block with-errors" })
+                        </div>
+                    </div>
+
+                    <div class='form-group'>                        
+                        @Html.EditorFor(model => model.Description, new
+                        {
+                            htmlAttributes = new
+                            {
+                                @class = "form-control wow fadeInUp",
+                                data_wow_delay = ".8s",
+                                placeholder = Html.DisplayNameFor(x => x.Description),
+                                rows = 5,
+                                required = "required"
+                            }
+                        })
+                        @Html.ValidationMessageFor(model => model.Description, "", new { @class = "help-block with-errors" })
+                    </div>
+
+                    <div class='form-group text-center'>
+                        @*<input type="button" onclick="location.href='preview.html';" value="Go to Google" />*@
+                        <input type="submit" value="Create" class="btn btn-default" />
+
+                    </div>
+
+                }
+
+            </div>
+        </div>
+    </div>
+
+
+</section>

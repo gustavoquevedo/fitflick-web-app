@@ -1,0 +1,121 @@
+﻿@model FitFlickWebApp.Models.Advertisement
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Advertisement</h4>
+    <hr />
+    <p>
+        @{
+            var base64 = Convert.ToBase64String(Model.ImageData);
+            var imgSrc = String.Format("data:image/jpeg;base64,{0}", base64);
+        }
+
+        <img src="@imgSrc" />
+    </p>
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.PaymentOption)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PaymentOption)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.BusinessName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.BusinessName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.EmailAddress)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.EmailAddress)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.WebsiteUrl)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.WebsiteUrl)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.AdvertisementType)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.AdvertisementType)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TwitterLink)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TwitterLink)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.InstagramUserName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.InstagramUserName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ImageFileName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ImageFileName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Description)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Description)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CreateDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CreateDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ModifyDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ModifyDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Approved)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Approved)
+        </dd>
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.ID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

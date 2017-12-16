@@ -1,0 +1,30 @@
+﻿body {
+}
+#ad-list-container form input[type=submit] {
+    background: #888;
+    color: #fff;
+    border: 0;
+    cursor: pointer;
+    -webkit-border-radius: 5px;
+    border-radius: 5px;
+}
+
+#ad-list-container input.check-box {
+    float: left;
+}
+
+#ad-list-container form input[type=submit] {
+    float: right;
+}
+
+#ad-list-container .disapproved {
+    color: lightgray;
+}
+
+#ad-list-container .disapproved form input[type=submit] {
+    background: #00695c;
+}
+
+form .help-block.with-errors {
+    color: #a94442;
+}
