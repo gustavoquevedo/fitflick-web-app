@@ -8,6 +8,7 @@ using System.Web;
 using System.Web.Mvc;
 using FitFlickWebApp.DAL;
 using FitFlickWebApp.Models;
+using System.Net.Mail;
 
 namespace NewsletterForm.Controllers
 {
@@ -53,6 +54,7 @@ namespace NewsletterForm.Controllers
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
+        [AllowAnonymous]
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "ID,PaymentOption,BusinessName,EmailAddress,WebsiteUrl,AdvertisementType,TwitterLink,InstagramUserName,Description")] Advertisement advertisement, HttpPostedFileBase ImageFile)
         {
@@ -172,6 +174,10 @@ namespace NewsletterForm.Controllers
             Advertisement ad = db.Advertisements.Find(id);
             ad.Approved = value;
             db.SaveChanges();
+            if(ad.Approved)
+            {
+                SendApprovalEmail(ad.EmailAddress);
+            }
             return View("Index", db.Advertisements.ToList());
         }
 
@@ -180,6 +186,24 @@ namespace NewsletterForm.Controllers
         public ActionResult Policy()
         {
             return View();
+        }
+
+        private void SendApprovalEmail(string emailAddress)
+        {
+            using (MailMessage mm = new MailMessage("fitflickwebapp@gmail.com", emailAddress))
+            {
+                mm.Subject = "FitFlick - Advertisement approved";
+                mm.Body = "<p>Congratulations! Your ad has been approved</p><br><p>Kind regards,</p><p>The FitFlick team</p>";
+                mm.IsBodyHtml = true;
+                SmtpClient smtp = new SmtpClient();
+                smtp.Host = "smtp.gmail.com";
+                smtp.EnableSsl = true;
+                NetworkCredential NetworkCred = new NetworkCredential("fitflickwebapp", "Fit321Flick!");
+                smtp.UseDefaultCredentials = true;
+                smtp.Credentials = NetworkCred;
+                smtp.Port = 587;
+                smtp.Send(mm);
+            }
         }
 
         protected override void Dispose(bool disposing)
